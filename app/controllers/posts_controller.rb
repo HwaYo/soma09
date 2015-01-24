@@ -23,12 +23,20 @@ class PostsController < ApplicationController
 
     if @post.update(closed: true)
       content = <<-eos
-        참가하셨던 공동구매가 마감되었습니다!
-
-        #{@post.link}
-
-        #{@post.content}
+        <p>참가하셨던 공동구매가 마감되었습니다!</p>
+        <p>
+          <a href="http://soma09.herokuapp.com">여기</a>에 가서 확인해주세요!
+        </p>
+        <p>
+          <a href="#{@post.link}">상세보기</a>
+        </p>
+        <p>
+          #{@post.content}
+        </p>
       eos
+
+      content = content.gsub /^\s+/, ""
+
       send_notification_email "참가하셨던 공동구매가 마감되었습니다!", content
     end
 
@@ -55,7 +63,7 @@ private
       @mailgun.messages.send_email({
         to: participant.user.email,
         subject: subject,
-        text: text,
+        html: text,
         from: @post.user.email
       })
     end
