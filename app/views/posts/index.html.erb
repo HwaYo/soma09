@@ -7,13 +7,13 @@
           <% else %>
             <div class="form-group validate-has-error">
           <% end %>
-            <%= f.label :link, class: "hidden control-label" %>
-            <%= f.text_field :link, class: "form-control",placeholder: "제품 이미지 Url을 입력해주세요" %>
+          <%= f.label :link, class: "hidden control-label" %>
+          <%= f.text_field :link, class: "form-control",placeholder: "제품 이미지 Url을 입력해주세요" %>
 
-            <% @new_post.errors.messages[:link].each do |message| %>
-              <span for="link" class="validate-has-error"><%= message %></span>
-            <% end %> 
-          </div>
+          <% @new_post.errors.messages[:link].each do |message| %>
+            <span for="link" class="validate-has-error"><%= message %></span>
+          <% end %> 
+        </div>
 
           <% if @new_post.errors.messages[:content].blank? %>
             <div class="form-group">
@@ -46,7 +46,7 @@
             <small>
 
               <span class="pull-right">
-                <%= time_ago_in_words post.created_at %> ago
+                <%= time_ago_in_words post.created_at %> 전
                 <span>via <%= post.user.name %></span>
               </span>
             </small>

@@ -1,0 +1,53 @@
+<div class="page-container admin-page-container">
+  <div class="main-content" style="min-height: 1692px;">
+
+
+    <div class="row">
+      <div class="col-md-9 col-sm-7">
+        <h2>Members</h2>
+      </div>
+    </div>
+
+    <% @users.each do |user| %>
+      <div class="member-entry">
+
+        <a href="extra-timeline.html" class="member-img">
+          <%= image_tag user.image, class: "img-rounded" %>
+          <i class="entypo-forward"></i>
+        </a>
+
+        <div class="member-details">
+          <h4>
+            <%= link_to user.name, user.url %>
+          </h4>
+
+          <div class="row info-list">
+            <div class="col-sm-4">
+              <i class="entypo-facebook"></i>
+              <%= link_to 'facebook', user.url %>
+            </div>
+
+            <div class="col-sm-4">
+              <i class="entypo-mail"></i>
+              <a href="#"><%= user.email %></a>
+            </div>
+
+            <div class="col-sm-offset-2 col-sm-2 action-links">
+              <% unless user.approved? %>
+                <%= link_to [:approve, :admin, user], method: 'post', class: "admin-user-not-approve" do %>
+                  <i class="entypo-check"></i>
+                  Approve
+                <% end %>
+              <% else %>
+                <p class="admin-user-approved">
+                  Approved
+                </p>
+              <% end %> 
+            </div>
+          </div>
+        </div>
+    </div>
+    <% end %>
+
+  </div>
+</div>

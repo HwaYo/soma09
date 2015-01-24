@@ -3,7 +3,16 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:index, :create]
   resources :participants, only: [:create, :destroy]
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
+
+
+  namespace :admin do
+    resources :users, only: [:index] do
+      member do
+        post :approve
+      end
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
