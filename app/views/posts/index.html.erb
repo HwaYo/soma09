@@ -66,6 +66,26 @@
                 <% end %>
               <% end %>
             </div>
+
+            <% if post.participants.present? %>
+              <div class="participants-panel">
+                <div class="panel minimal minimal-gray">
+                  <div class="panel-body participants-body">
+                    <ul class="user-info pull-left pull-none-xsm">
+                      <li class="profile-info">
+                        <span class="participants-label">참가자</span>
+                        <% post.participants.each do |participant| %>
+                          <%= link_to participant.user.url, target: "blank" do %>
+                            <%= image_tag(asset_url(participant.user.image), class: "img-circle", width: "33") %>
+                          <% end %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
           </div>
         </div>
 
