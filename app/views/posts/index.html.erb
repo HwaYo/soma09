@@ -95,8 +95,41 @@
             <% end %>
 
           </div>
+          <ul class="comments-list border-top">
+          <% post.comments.each do |comment| %>
+            <li>
+                <span class="coment-picture">
+                  <%= link_to comment.user.url, target: "blank" do %>
+                    <%= image_tag(asset_url(comment.user.image), class: "img-circle", width: "33") %>
+                  <% end %>
+                </span>
+                <span class="col-md-11">
+                  <div class="comment-head">
+                    <%= link_to comment.user.url, target: "blank" do %>
+                      <%= comment.user.name %>
+                    <% end %>
+                    <small class="pull-right">
+                      <%= time_ago_in_words comment.created_at %> 전
+                    </small>
+                  </div>
+                  <%= comment.content %>
+                </span>
+            </li>
+          <% end %>
+          </ul>
         </div>
-
+          
+        <div class="comment-form">
+          <%= form_for [post, post.comments.new] do |f| %>
+            <%= f.hidden_field :post_id, value: post.id %>
+              <div class="input-group">
+              <%= f.text_field :content, class: "form-control comment_input" %>
+              <span class="input-group-btn">
+                <%= f.submit "댓글", class: "btn btn-info disabled comment_submit" %>
+              </span>
+            </div>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

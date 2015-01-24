@@ -13,6 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20150124101111) do
 
+  create_table "comments", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
   create_table "participants", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "post_id"
@@ -26,10 +37,11 @@ ActiveRecord::Schema.define(version: 20150124101111) do
   create_table "posts", force: :cascade do |t|
     t.string   "link"
     t.text     "content"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "comments_count", default: 0
     t.integer  "user_id"
-    t.boolean  "closed",     default: false
+    t.boolean  "closed",         default: false
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
@@ -51,9 +63,10 @@ ActiveRecord::Schema.define(version: 20150124101111) do
     t.string   "uid"
     t.string   "name"
     t.string   "image"
-    t.integer  "posts_count",            default: 0
     t.string   "url"
     t.boolean  "approved",               default: false
+    t.integer  "comments_count",         default: 0
+    t.integer  "posts_count",            default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
