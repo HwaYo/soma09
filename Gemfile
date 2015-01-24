@@ -52,3 +52,5 @@ end
 # Devise
 gem 'devise'
 gem 'omniauth-facebook'
+
+gem 'mailgun', '~> 0.8'

@@ -41,7 +41,7 @@
         <div class="panel panel-info" data-collapsed="0">
           <!-- panel body -->
           <div class="panel-body">
-            <p class="post-content"><%= post.content %></p>
+            <p class="post-content"><%= simple_format(post.content) %></p>
             <%= link_to "상세보기", post.link, target: "blank" %>
             <small>
 
@@ -50,14 +50,14 @@
                 <span>via <%= post.user.name %></span>
               </span>
             </small>
-            <div class=" clearfix"></div>
+            <div class="clearfix"></div>
             <div class="menu-div">
               <% if current_user == post.user %>
               <div class="btn-group">
                 <% if post.closed %>
-                  <%= link_to "마감풀기" , open_post_path(post), class: "btn btn-default" %>
+                  <%= link_to "마감풀기" , open_post_path(post), class: "btn btn-default btn-post-close" %>
                 <% else %>
-                  <%= link_to "마감하기" , close_post_path(post), class: "btn btn-red" %>
+                  <%= link_to "마감하기" , close_post_path(post), class: "btn btn-red btn-post-close" %>
                 <% end %>
                 <%= link_to "수정하기" , root_path, class: "btn btn-default" %>
                 <%= link_to "삭제하기" , root_path, class: "btn btn-default" %>
