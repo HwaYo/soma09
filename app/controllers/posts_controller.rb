@@ -18,6 +18,20 @@ class PostsController < ApplicationController
     end
   end
 
+  def close
+    @post = Post.find(params[:id])
+    @post.update(closed: true)
+
+    redirect_to posts_path
+  end
+
+  def open
+    @post = Post.find(params[:id])
+    @post.update(closed: false)
+
+    redirect_to posts_path
+  end
+
   private
     def post_params
       params.require(:post).permit(:link, :content)
