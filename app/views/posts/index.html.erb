@@ -49,8 +49,38 @@
               </span>
             </small>
           </div>
+          <ul class="comments-list border-top">
+          <% post.comments.each do |comment| %>
+            <li>
+                <span class="coment-picture">
+                  <img class="img-circle" width="33px" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/p320x320/67393_854806001238152_7894471709168287462_n.jpg?oh=67480dded674b9c1fa612e23f46d5610&oe=556DD19C&__gda__=1428555070_7b248cbc7f67d98773df39a163e7ea00"/>
+                </span>
+                <span class="col-md-11">
+                  <div class="comment-head">
+                  작성자 
+                  </div>
+                  <%= comment.content %>
+                </span>
+            </li>
+          <% end %>
+          </ul>
         </div>
+          
+        <div class="comment-form">
+          <%= form_for [post, post.comments.new] do |f| %>
+            <%= f.hidden_field :post_id, value: post.id %>
 
+            <div class="input-group">
+              <%= f.text_field :content, class: "form-control" %>
+              
+              <span class="input-group-btn">
+                <%= f.submit "댓글", class: "btn btn-info" %>
+                
+              </span>
+            </div>
+          <% end %>
+
+        </div>
       </div>
     <% end %>
   </div>
