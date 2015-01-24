@@ -34,7 +34,7 @@
  </div>
 
 
-  <div class="row post-list">
+  <div class="row post-list ">
 
     <% @posts.each do |post| %>
       <div class="col-md-6 col-md-offset-3">
@@ -44,10 +44,28 @@
             <p class="post-content"><%= post.content %></p>
             <%= link_to "상세보기", post.link, target: "blank" %>
             <small>
+
               <span class="pull-right">
                 <%= time_ago_in_words post.created_at %> ago
+                <span>via <%= post.user.name %></span>
               </span>
             </small>
+            <div class=" clearfix"></div>
+            <div class="menu-div">
+              <% if current_user == post.user %>
+              <div class="btn-group">
+                <%= link_to "마감하기" , root_path, class: "btn btn-default" %>
+                <%= link_to "수정하기" , root_path, class: "btn btn-default" %>
+                <%= link_to "삭제하기" , root_path, class: "btn btn-default" %>
+            </div >
+              <% else %>
+                <% if participant = post.participants.find_by(user: current_user) %>
+                  <%= link_to "참여취소" , participant_path(participant), method: :delete, class: "btn btn-default btn-block" %>
+                <% else %>
+                  <%= link_to "참여하기" , participants_path(post_id: post.id), method: :post, class: "btn btn-default btn-block" %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
 
