@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts, only: [:index, :create]
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
+
 
   namespace :admin do
     resources :users, only: [:index] do

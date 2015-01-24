@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Soma09</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body class="skin-white page-body <%= content_for(:login_page) %>">
+  <%= render partial: "layouts/flash_messages", flash: flash %>
+  <%= yield %>
+</body>
+</html>
