@@ -9,7 +9,7 @@ class ParticipantsController < ApplicationController
   end
 
   def destroy
-    participant = Participant.find_by(params[:id])
+    participant = Participant.find_by_id(params[:id])
 
     if participant and participant.user == current_user
       participant.destroy
