@@ -11,22 +11,22 @@
       <a href="index.html" class="logo">
         <%= image_tag asset_url("swm_bi.jpg"), class: "login-logo" %>
       </a>
-      
+
       <p class="description">SW Maestro 공동구매 서비스 SOMA09</p>
-      
+
       <!-- progress bar indicator -->
       <div class="login-progressbar-indicator">
         <h3>0%</h3>
         <span>logging in...</span>
       </div>
     </div>
-    
+
   </div>
-  
+
   <div class="login-progressbar">
     <div></div>
   </div>
-  
+
   <div class="login-form">
 
     <div class="login-content">
@@ -35,7 +35,7 @@
         <h3>Invalid login</h3>
         <p>Enter <strong>demo</strong>/<strong>demo</strong> as login and password.</p>
       </div>
-      
+
       <div class="form-group">
         <a href="<%= omniauth_authorize_path('user', 'facebook') %>">
           <button type="button" class="btn btn-default btn-lg btn-block btn-icon icon-left facebook-button">
@@ -47,8 +47,8 @@
       </div>
 
     </div>
-    
+
   </div>
-  
+
 </div>
 

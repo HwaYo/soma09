@@ -2,10 +2,14 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts, only: [:index, :create] do
-    resources :comments, only: [:create]
-  end  
+    member do
+      get 'close'
+      get 'open'
+    end
 
-  resources :posts, only: [:index, :create]
+    resources :comments, only: [:create]
+  end
+
   resources :participants, only: [:create, :destroy]
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
