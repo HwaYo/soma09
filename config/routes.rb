@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end  
 
+  resources :posts, only: [:index, :create]
+  resources :participants, only: [:create, :destroy]
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
 
@@ -15,7 +17,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

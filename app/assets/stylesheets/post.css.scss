@@ -1,5 +1,16 @@
 .post-list {
   margin-top: 30px;
+
+  .menu-div {
+    margin-top: 10px;
+
+    .btn-group{
+      width:100%;
+      .btn-default{
+        width:33.333333% !important
+      }
+    }
+  }
 }
 .post-content {
   word-break: break-word;
@@ -7,4 +18,20 @@
 .post-form {
   margin-top: 50px;
   margin-bottom: 20px;
+}
+
+.participants-panel {
+  margin-top: 20px;
+}
+
+.participants-label {
+  padding-right: 10px;
+  border-right: 1px solid #cacaca;
+  margin-right: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.participants-body {
+  padding: 0;
 }

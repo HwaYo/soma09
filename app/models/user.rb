@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
+  has_many :posts
+  has_many :participants
+  has_many :posts, through: :participants
+
   def approve!
     update!(approved: true)
   end

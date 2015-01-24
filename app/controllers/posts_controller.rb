@@ -6,11 +6,13 @@ class PostsController < ApplicationController
 
   def create
     @new_post = Post.new(post_params)
+    @user = current_user
+
+    @new_post.user = @user
 
     if @new_post.save
       redirect_to posts_path
     else
-      # @new_post = Post.new
       @posts = Post.latest
       render 'index'
     end
