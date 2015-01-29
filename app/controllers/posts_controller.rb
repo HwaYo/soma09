@@ -10,6 +10,8 @@ class PostsController < ApplicationController
 
     @new_post.user = @user
 
+    @new_post.participants.build(user: @user)
+
     if @new_post.save
       redirect_to posts_path
     else
@@ -53,7 +55,7 @@ class PostsController < ApplicationController
 
 private
   def post_params
-    params.require(:post).permit(:link, :content)
+    params.require(:post).permit(:link, :content, :max_participant_number)
   end
 
   def send_notification_email(subject, text)
