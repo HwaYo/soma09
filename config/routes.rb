@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'posts#index'
 
-  resources :posts, only: [:index, :create] do
+  resources :posts do
     member do
       get 'close'
       get 'open'
