@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20150124101111) do
     t.text     "content"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "comments_count", default: 0
     t.integer  "user_id"
+    t.integer  "comments_count", default: 0
     t.boolean  "closed",         default: false
   end
 
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20150124101111) do
     t.string   "image"
     t.string   "url"
     t.boolean  "approved",               default: false
-    t.integer  "comments_count",         default: 0
     t.integer  "posts_count",            default: 0
+    t.integer  "comments_count",         default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

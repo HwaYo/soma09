@@ -51,6 +51,22 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def thumbnail
+    @post = Post.find(params[:id])
+
+    if @post.link =~ URI::regexp
+      link_thumbnail = LinkThumbnailer.generate(@post.link)
+      render json: link_thumbnail
+      return
+    end
+
+    render json: {}
+
+  # TODO: Fix invalid byte sequence problem (from gem)
+  rescue ArgumentError => e
+    render json: {}
+  end
+
 private
   def post_params
     params.require(:post).permit(:link, :content)

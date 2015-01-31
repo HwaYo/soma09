@@ -50,6 +50,7 @@
                 <span>via <%= post.user.name %></span>
               </span>
             </small>
+            <%= render 'thumbnail', { post: post } %>
             <div class="clearfix"></div>
             <div class="menu-div">
               <% if current_user == post.user %>
@@ -118,7 +119,7 @@
           <% end %>
           </ul>
         </div>
-          
+
         <div class="comment-form">
           <%= form_for [post, post.comments.new] do |f| %>
             <%= f.hidden_field :post_id, value: post.id %>

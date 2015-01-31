@@ -35,3 +35,22 @@
 .participants-body {
   padding: 0;
 }
+
+.post-thumbnail {
+  margin-top: 20px;
+
+  .post-thumbnail-image {
+    img {
+      width: 100%;
+    }
+  }
+
+  .post-thumbnail-title {
+    font-size: 12pt;
+    font-weight: bold;
+  }
+
+  .post-thumbnail-description {
+    margin: 10px 0;
+  }
+}

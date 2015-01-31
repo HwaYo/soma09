@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       get 'close'
       get 'open'
+      get 'thumbnail'
     end
 
     resources :comments, only: [:create]

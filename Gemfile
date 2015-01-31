@@ -54,3 +54,5 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 gem 'mailgun', '~> 0.8'
+
+gem 'link_thumbnailer', '~> 2.4.0'
