@@ -44,7 +44,7 @@
             <!-- panel body -->
             <div class="panel-body">
               <p class="post-content"><%= simple_format(post.content) %></p>
-              <%= link_to "상세보기", post.link, target: "blank" %>
+              <%= link_to post.host, post.link, target: "blank" %>
               <small>
 
                 <span class="pull-right">
