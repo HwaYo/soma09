@@ -3,26 +3,38 @@ $(document).on('ready page:load', function () {
     $(this).addClass('disabled');
   });
 
-  $(".btn-post-edit").on("click", function(e){
-    var link = $(e.target);
-    var post_id = link.data('post');
-    
-    $.ajax({
-      url: "posts/" + post_id + "/edit"
-    }).success(function(html){
-        $('.modal-body').html(html);
-    });
-  });
-
-  $("#edit-modal").on("shown.bs.modal", function(e) {
-    $('.modal-footer input[type="submit"]').on("click", function(e){
-      if($('.modal-body textarea[name$="[content]"]').val() != "" && $('.modal-body input[name$="[link]"]').val() != "") {
-        $('#edit-modal form').submit();
-      }
-      else {
-        e.preventDefault();
-        alert("빈 칸을 채워주세요.");
-      }
-    });
-  });
+  editModal.init();
 });
+
+var editModal = {
+  init: function(){
+    this.loadInitContent();
+    $("#edit-modal").on("shown.bs.modal", function(e) {
+      editModal.setValidationEvent();    
+    });
+  },
+
+  loadInitContent: function(){
+    $(".btn-post-edit").on("click", function(e){
+      var link = $(e.target);
+      var postId = link.data('post');
+      
+      $.ajax({
+        url: "posts/" + postId + "/edit"
+      }).success(function(html){
+        $('.modal-body').html(html);
+      });
+    });
+  },
+
+  setValidationEvent: function(){
+    $('#edit-modal form').on('ajax:success', function(xhr, status, error){
+      location.reload();
+    }).on('ajax:error',function(xhr, status, error){
+      $('.modal-body').html(status.responseText);
+      editModal.setValidationEvent();
+    });
+  }
+
+
+}

@@ -26,8 +26,11 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     
-    @post.update(post_params)
-    redirect_to posts_path
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      render partial: "edit_modal", status: 500
+    end
   end
 
   def close
