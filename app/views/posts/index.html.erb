@@ -4,7 +4,7 @@
         <%= form_for @new_post do |f| %>
           <div class="form-group">
             <%= f.label :max_participant_number, class: "hidden control-label" %>
-            <%= f.select :max_participant_number, options_for_select(2.upto(20).collect{|number| ["#{number}명", number]}), {include_blank: "참여인원"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+            <%= f.select :max_participant_number, options_for_max_participant_select, {include_blank: "참여인원"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
           </div>
           <% if @new_post.errors.messages[:link].blank? %>
             <div class="form-group">
@@ -129,7 +129,7 @@
           <% end %>
           </ul>
         </div>
-          
+
         <div class="comment-form">
           <%= form_for [post, post.comments.new] do |f| %>
             <%= f.hidden_field :post_id, value: post.id %>
