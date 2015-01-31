@@ -59,7 +59,7 @@
                 <% else %>
                   <%= link_to "마감하기" , close_post_path(post), class: "btn btn-red btn-post-close" %>
                 <% end %>
-                <%= link_to "수정하기" , '#', class: "btn btn-default btn-post-edit", data: {toggle: 'modal', target: '#editModal', post: post.id } %>
+                <%= link_to "수정하기" , '#', class: "btn btn-default btn-post-edit", data: {toggle: 'modal', target: '#edit-modal', post: post.id } %>
                 <%= link_to "삭제하기" , root_path, class: "btn btn-default" %>
             </div >
               <% else %>
@@ -135,12 +135,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="editModalLabel">상품 수정하기</h4>
+        <h4 class="modal-title" id="edit-modal-label">상품 수정하기</h4>
       </div>
       <div class="modal-body">
         

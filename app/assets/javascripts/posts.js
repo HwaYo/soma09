@@ -14,10 +14,10 @@ $(document).on('ready page:load', function () {
     });
   });
 
-  $("#editModal").on("shown.bs.modal", function(e) {
+  $("#edit-modal").on("shown.bs.modal", function(e) {
     $('.modal-footer input[type="submit"]').on("click", function(e){
       if($('.modal-body textarea[name$="[content]"]').val() != "" && $('.modal-body input[name$="[link]"]').val() != "") {
-        $('#editModal form').submit();
+        $('#edit-modal form').submit();
       }
       else {
         e.preventDefault();
