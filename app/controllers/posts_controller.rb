@@ -54,17 +54,8 @@ class PostsController < ApplicationController
   def thumbnail
     @post = Post.find(params[:id])
 
-    if @post.link =~ URI::regexp
-      link_thumbnail = LinkThumbnailer.generate(@post.link)
-      render json: link_thumbnail
-      return
-    end
-
-    render json: {}
-
-  # TODO: Fix invalid byte sequence problem (from gem)
-  rescue ArgumentError => e
-    render json: {}
+    generate_thumbnail! unless @post.thumbnail
+    render json: @post.thumbnail
   end
 
 private
@@ -83,5 +74,20 @@ private
         from: @post.user.email
       })
     end
+  end
+
+  def generate_thumbnail!
+    link_thumbnail = LinkThumbnailer.generate(@post.link)
+    @post.build_thumbnail({
+      link: @post.link,
+      title: link_thumbnail.title,
+      description: link_thumbnail.description,
+      images: link_thumbnail.images.map { |image| image.src.to_s }
+    })
+    @post.save!
+
+  # TODO: Fix invalid byte sequence problem (from gem)
+  rescue ArgumentError, LinkThumbnailer::BadUriFormat => e
+    @post.build_thumbnail
   end
 end

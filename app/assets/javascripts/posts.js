@@ -9,10 +9,10 @@ $(document).on('ready page:load', function () {
       url: "/posts/" + $(this).data('post-id') + "/thumbnail"
     }).done(function (result) {
       $(thumbnail).find('.post-thumbnail-image').prepend($('<img />', {
-        src: result.images[0].src
+        src: result.images[0] || '',
       }));
-      $(thumbnail).find('.post-thumbnail-title').text(result.title);
-      $(thumbnail).find('.post-thumbnail-description').text(result.description);
+      $(thumbnail).find('.post-thumbnail-title').text(result.title || 'No title');
+      $(thumbnail).find('.post-thumbnail-description').text(result.description || 'No description');
     });
   });
 });
