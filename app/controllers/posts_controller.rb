@@ -33,6 +33,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
+    redirect_to posts_path, notice: "정상적으로 삭제하였습니다."
+  end
+
   def close
     @post = Post.find(params[:id])
 
