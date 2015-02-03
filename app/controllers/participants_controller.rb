@@ -4,7 +4,10 @@ class ParticipantsController < ApplicationController
     @post = Post.find(params[:post_id])
 
     @post.participants.find_or_create_by(user: @user)
-
+    
+    message = "#{@user.name}님이 공동구매에 참여하였습니다."
+    NotificationsController.send_notification(@post, @user, message)
+  
     redirect_to posts_path
   end
 

@@ -6,13 +6,15 @@ Rails.application.routes.draw do
       get 'close'
       get 'open'
     end
-
     resources :comments, only: [:create]
+    resources :notifications, only: [:create]
   end
 
-  resources :participants, only: [:create, :destroy]
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
+  resources :notifications, only: [:update]
 
+  resources :participants, only: [:create, :destroy]
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
   namespace :admin do
     resources :users, only: [:index] do

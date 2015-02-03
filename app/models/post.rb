@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 
 
   has_many :comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   belongs_to :user, counter_cache: true
 

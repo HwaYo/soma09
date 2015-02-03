@@ -9,8 +9,9 @@ class PostsController < ApplicationController
     @user = current_user
 
     @new_post.user = @user
-
+    
     if @new_post.save
+      @new_post.participants.find_or_create_by(user: @user)
       redirect_to posts_path
     else
       @posts = Post.latest
@@ -60,6 +61,10 @@ class PostsController < ApplicationController
       content = content.gsub /^\s+/, ""
 
       send_notification_email "참가하셨던 공동구매가 마감되었습니다!", content
+
+      message = "참가하셨던 공동구매가 마감되었습니다!"
+      NotificationsController.send_notification(@post, @post.user, message)
+
     end
 
     redirect_to posts_path
