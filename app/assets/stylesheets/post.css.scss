@@ -49,9 +49,11 @@
   .post-thumbnail-title {
     font-size: 12pt;
     font-weight: bold;
+    word-break: break-all;
   }
 
   .post-thumbnail-description {
     margin: 10px 0;
+    word-break: break-all;
   }
 }
