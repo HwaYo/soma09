@@ -112,7 +112,14 @@
                       <%= time_ago_in_words comment.created_at %> 전
                     </small>
                   </div>
-                  <%= comment.content %>
+                  <p><%= comment.content %></p>
+                  <input type="hidden" id="comment-id" value=<%= comment.id %>></input>
+                </span>
+                <span class="pull-right">
+                  <% if current_user == comment.user %>
+                    <div class="btn btn-orange btn-xs" id="edit-comment">수정</div>
+                    <%= link_to '삭제', [comment.post, comment], class: "btn btn-red btn-xs", method: :delete, data: { confirm: "정말로 삭제하시겠습니까?"} %>
+                  <% end %>
                 </span>
             </li>
           <% end %>
