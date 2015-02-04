@@ -2,16 +2,17 @@ class PostsController < ApplicationController
   def index
     @new_post = Post.new
     @posts = Post.latest
+    @notifications = current_user.notifications.last(8).reverse
+    @notification_size = current_user.notifications.select{|notification| notification.read == false }.size
   end
 
   def create
     @new_post = Post.new(post_params)
-    @user = current_user
 
-    @new_post.user = @user
-    
+    @new_post.user = current_user
+    @new_post.participants.build(user: current_user)
+
     if @new_post.save
-      @new_post.participants.find_or_create_by(user: @user)
       redirect_to posts_path
     else
       @posts = Post.latest

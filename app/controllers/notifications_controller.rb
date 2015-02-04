@@ -1,17 +1,15 @@
 class NotificationsController < ApplicationController
+  
   def self.send_notification(post, send_user, message)
     post.participants.each do |participant|
-      unless participant.user == send_user
-        @notification = Notification.new
+      next if participant.user == send_user
 
-        @notification.message = message
-
-        @notification.target_user = participant.user
-        @notification.send_user = send_user
-        @notification.post = post
-
-        @notification.save  
-      end
+      Notification.create!({
+        message: message,
+        target_user: participant.user,
+        send_user: send_user,
+        post: post
+      })
     end
   end
 
