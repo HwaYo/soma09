@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20150128151547) do
     t.integer  "user_id"
     t.integer  "comments_count",         default: 0
     t.boolean  "closed",                 default: false
-    t.integer  "participant_number",     default: 2
     t.integer  "max_participant_number", default: 2
   end
 
