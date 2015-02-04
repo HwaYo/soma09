@@ -1,55 +1,56 @@
-<div class="row">
-  <div class="row post-form">
-    <div class="col-md-6 col-md-offset-3">
+<div class="container">
+  <div class="post-form">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
         <%= form_for @new_post do |f| %>
           <% if @new_post.errors.messages[:link].blank? %>
             <div class="form-group">
           <% else %>
             <div class="form-group validate-has-error">
           <% end %>
-          <%= f.label :link, class: "hidden control-label" %>
-          <%= f.text_field :link, class: "form-control",placeholder: "제품 이미지 Url을 입력해주세요" %>
+              <%= f.label :link, class: "hidden control-label" %>
+              <%= f.text_field :link, class: "form-control",placeholder: "제품 이미지 Url을 입력해주세요" %>
 
-          <% @new_post.errors.messages[:link].each do |message| %>
-            <span for="link" class="validate-has-error"><%= message %></span>
-          <% end %> 
-        </div>
+              <% @new_post.errors.messages[:link].each do |message| %>
+                <span for="link" class="validate-has-error"><%= message %></span>
+                <% end %> 
+            </div>
 
           <% if @new_post.errors.messages[:content].blank? %>
             <div class="form-group">
           <% else %>
             <div class="form-group validate-has-error">
           <% end %>
-            <%= f.label :content, class: "hidden control-label" %>
-            <%= f.text_area :content, class: "form-control",  placeholder: "제품 설명을 적어주세요", rows: 10 %>
+              <%= f.label :content, class: "hidden control-label" %>
+              <%= f.text_area :content, class: "form-control",  placeholder: "제품 설명을 적어주세요", rows: 10 %>
 
-            <% @new_post.errors.messages[:content].each do |message| %>
-              <span for="content" class="validate-has-error"><%= message %></span>
-            <% end %>
-          </div>
+              <% @new_post.errors.messages[:content].each do |message| %>
+                <span for="content" class="validate-has-error"><%= message %></span>
+                <% end %>
+            </div>
 
           <%= f.submit "등록", class: "btn btn-info btn-block" %>
         <% end %>
+      </div>
     </div>
- </div>
+  </div>
 
 
-  <div class="row post-list ">
-
+  <div class="post-list">
     <% @posts.each do |post| %>
-      <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-info" data-collapsed="0">
-          <!-- panel body -->
-          <div class="panel-body">
-            <p class="post-content"><%= simple_format(post.content) %></p>
-            <%= link_to "상세보기", post.link, target: "blank" %>
-            <small>
-
-              <span class="pull-right">
-                <%= time_ago_in_words post.created_at %> 전
-                <span>via <%= post.user.name %></span>
-              </span>
-            </small>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="post panel panel-info" data-collapsed="0">
+            <!-- panel body -->
+            <div class="panel-body">
+              <p class="post-content"><%= simple_format(post.content) %></p>
+              <%= link_to post.host, post.link, class: 'host', target: "blank" %>
+              <small>
+                <span class="pull-right">
+                  <%= time_ago_in_words post.created_at %> 전
+                  <span>via <%= post.user.name %></span>
+                </span>
+              </small>
             <div class="clearfix"></div>
             <div class="menu-div">
               <% if current_user == post.user %>
@@ -66,75 +67,75 @@
                 <% if post.closed %>
                   <%= link_to "마감됨" , participants_path(post_id: post.id), method: :post, class: "btn btn-red btn-block disabled" %>
                 <% else %>
-                  <% if participant = post.participants.find_by(user: current_user) %>
-                    <%= link_to "참여취소" , participant_path(participant), class: "btn btn-default btn-block", method: :delete %>
-                  <% else %>
-                    <%= link_to "참여하기" , participants_path(post_id: post.id), method: :post, class: "btn btn-success btn-block" %>
+                    <% if participant = post.participants.find_by(user: current_user) %>
+                      <%= link_to "참여취소" , participant_path(participant), method: :delete, class: "btn btn-default btn-block" %>
+                    <% else %>
+                      <%= link_to "참여하기" , participants_path(post_id: post.id), method: :post, class: "btn btn-success btn-block" %>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
 
-            <% if post.participants.present? %>
-              <div class="participants-panel">
-                <div class="panel minimal minimal-gray">
-                  <div class="panel-body participants-body">
-                    <ul class="user-info pull-left pull-none-xsm">
-                      <li class="profile-info">
-                        <span class="participants-label">참가자</span>
-                        <% post.participants.each do |participant| %>
-                          <%= link_to participant.user.url, target: "blank" do %>
-                            <%= image_tag(asset_url(participant.user.image), class: "img-circle", width: "33") %>
+              <% if post.participants.present? %>
+                <div class="participants-panel">
+                  <div class="panel minimal minimal-gray">
+                    <div class="panel-body participants-body">
+                      <ul class="user-info pull-left pull-none-xsm">
+                        <li class="profile-info">
+                          <span class="participants-label">참가자</span>
+                          <% post.participants.each do |participant| %>
+                            <%= link_to participant.user.url, target: "blank" do %>
+                              <%= image_tag(asset_url(participant.user.image), class: "img-circle", width: "33") %>
+                            <% end %>
                           <% end %>
-                        <% end %>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
+              <% end %>
+
+            </div>
+            <ul class="comments-list border-top">
+            <% post.comments.each do |comment| %>
+              <li>
+                  <span class="coment-picture">
+                    <%= link_to comment.user.url, target: "blank" do %>
+                      <%= image_tag(asset_url(comment.user.image), class: "img-circle", width: "33") %>
+                    <% end %>
+                  </span>
+                  <span class="col-md-11">
+                    <div class="comment-head">
+                      <%= link_to comment.user.url, target: "blank" do %>
+                        <%= comment.user.name %>
+                      <% end %>
+                      <small class="pull-right">
+                        <%= time_ago_in_words comment.created_at %> 전
+                      </small>
+                    </div>
+                    <%= comment.content %>
+                  </span>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+
+          <div class="comment-form">
+            <%= form_for [post, post.comments.new] do |f| %>
+              <%= f.hidden_field :post_id, value: post.id %>
+                <div class="input-group">
+                <%= f.text_field :content, class: "form-control comment_input" %>
+                <span class="input-group-btn">
+                  <%= f.submit "댓글", class: "btn btn-info disabled comment_submit" %>
+                </span>
               </div>
             <% end %>
-
           </div>
-          <ul class="comments-list border-top">
-          <% post.comments.each do |comment| %>
-            <li>
-                <span class="coment-picture">
-                  <%= link_to comment.user.url, target: "blank" do %>
-                    <%= image_tag(asset_url(comment.user.image), class: "img-circle", width: "33") %>
-                  <% end %>
-                </span>
-                <span class="col-md-11">
-                  <div class="comment-head">
-                    <%= link_to comment.user.url, target: "blank" do %>
-                      <%= comment.user.name %>
-                    <% end %>
-                    <small class="pull-right">
-                      <%= time_ago_in_words comment.created_at %> 전
-                    </small>
-                  </div>
-                  <%= comment.content %>
-                </span>
-            </li>
-          <% end %>
-          </ul>
-        </div>
-          
-        <div class="comment-form">
-          <%= form_for [post, post.comments.new] do |f| %>
-            <%= f.hidden_field :post_id, value: post.id %>
-              <div class="input-group">
-              <%= f.text_field :content, class: "form-control comment_input" %>
-              <span class="input-group-btn">
-                <%= f.submit "댓글", class: "btn btn-info disabled comment_submit" %>
-              </span>
-            </div>
-          <% end %>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-
 <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
