@@ -1,49 +1,69 @@
 $(document).ready(function() {
   
-  $('.comment_input').on('keyup', function(e) {
+  $('.comment-input').on('keypress', function(e) {
     
     if ($(this).val().length != 0) {
-      $(this).parent().find('.comment_submit').removeClass("disabled");
+      $(this).parent().find('.comment-submit').removeClass("disabled");
     } else if(e.keyCode == 13) {
-      console.log('Enter Pressed');
       e.preventDefault();
       return false;
     } else {
-      $(this).parent().find('.comment_submit').addClass("disabled");
+      $(this).parent().find('.comment-submit').addClass("disabled");
     }
   });
 
-  $('.btn-xs, .btn-orange').on('click', function(e) {
+  $('.btn-comment-update').on('click', function(e) {
     // find the comment box and change it to a text-input form
-    $('.btn-xs, .btn-orange').addClass('disabled');
 
     commentBox = $(this).parent().prev();
     comment = commentBox.find('p');
 
+    // comment Id for update form submission
     commentId = $(this).parent().prev().find('#comment-id').attr('value');
     commentForm = $(this).closest('.panel-info').next().find('form');
     
-    updateButton = commentForm.find('input').last();
-    updateButton.addClass("btn-orange");
-    updateButton.removeClass("btn-info");
-    updateButton.attr('value',"수정");
-    updateButton.attr('type','button');
-    updateButton.attr('id','comment-update-btn');
+    commentButton = commentForm.find('.comment-submit');
+    // Change the comment button to an Update button
+    commentButton.addClass('btn-orange');
+    commentButton.removeClass('btn-info');
+    commentButton.attr('value','수정');
 
-    // Change Form attributes to Work as updates
-    var action = commentForm.attr('action') +"/"+ commentId;
-    commentForm.attr('action', action);
+    quitUpdate = commentForm.find('.btn-comment-quit');
+    quitUpdate.attr('type','button');
 
-    if( commentForm.find('_method') )
-      commentForm.find('_method').remove();
+    commentForm.find('.comment-input').attr('value',comment.text());
 
-    var putInput = $('<input type="hidden" name="_method" value="patch"></input>');
-    commentForm.append(putInput);
+    // Change Form attributes to Work as updates(patch /posts/:id/comments/:id)
+    updateAction = commentForm.attr('action') +"/"+ commentId;
+    commentForm.attr('action', updateAction);
 
-    commentForm.find('.comment_input').attr('value',comment.text()).attr('id','#comment-update-input');
+    patchInput = $('<input type="hidden" name="_method" value="patch"></input>');
+    commentForm.append(patchInput);
 
-    $(this).parent().find('.btn').first().remove();
+    $('.btn-comment-update').addClass('disabled');
     
+  });
+
+  $('.btn-comment-quit').on('click', function(e) {
+
+    updateButton = $(this).prev();
+    // Change Update button to an comment button
+    updateButton.addClass("btn-info");
+    updateButton.removeClass("btn-orange");
+    updateButton.attr('value',"댓글");
+
+    commentForm = $(this).closest('form');
+
+    updateAction = commentForm.attr('action');
+    submitAction = updateAction.slice(0, updateAction.lastIndexOf('/')+1 );
+
+    commentForm.attr('action',submitAction);
+    commentForm.find('input').last().remove();
+    commentForm.find('.comment-input').removeAttr('value');
+
+    $(this).attr('type','hidden');
+    $('.btn-comment-update').removeClass('disabled');
+
   });
 
 });

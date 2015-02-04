@@ -117,8 +117,8 @@
                 </span>
                 <span class="pull-right">
                   <% if current_user == comment.user %>
-                    <div class="btn btn-orange btn-xs" id="edit-comment">수정</div>
-                    <%= link_to '삭제', [comment.post, comment], class: "btn btn-red btn-xs", method: :delete, data: { confirm: "정말로 삭제하시겠습니까?"} %>
+                    <div class="btn btn-orange btn-xs btn-comment-update" id="edit-comment">수정</div>
+                    <%= link_to '삭제', [comment.post, comment], class: "btn btn-red btn-xs btn-comment-delete", method: :delete, data: { confirm: "정말로 삭제하시겠습니까?"} %>
                   <% end %>
                 </span>
             </li>
@@ -130,9 +130,10 @@
           <%= form_for [post, post.comments.new] do |f| %>
             <%= f.hidden_field :post_id, value: post.id %>
               <div class="input-group">
-              <%= f.text_field :content, class: "form-control comment_input" %>
+              <%= f.text_field :content, class: "form-control comment-input" %>
               <span class="input-group-btn">
-                <%= f.submit "댓글", class: "btn btn-info disabled comment_submit" %>
+                <%= f.submit "댓글", class: "btn btn-info disabled comment-submit" %>
+                <input type="hidden" class="btn btn-red btn-comment-quit" value="취소"/>
               </span>
             </div>
           <% end %>
