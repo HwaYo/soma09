@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="skin-white page-body <%= content_for(:login_page) %>">
+
 <nav class="navbar navbar-default" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -22,7 +23,7 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Notification</a></li>
+      <% unless current_user == nil %>
       <li class="notifications dropdown"> 
         <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
           <i class="entypo-bell"></i>
@@ -60,6 +61,7 @@
           </li>
         </ul> 
       </li>
+      <% end %>
 
       <li>
         <%= link_to destroy_user_session_path , method: :delete do %>

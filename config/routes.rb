@@ -7,10 +7,8 @@ Rails.application.routes.draw do
       get 'open'
     end
     resources :comments, only: [:create]
-    resources :notifications, only: [:create]
+    resources :notifications, only: [:create, :update], shallow: true
   end
-
-  resources :notifications, only: [:update]
 
   resources :participants, only: [:create, :destroy]
 

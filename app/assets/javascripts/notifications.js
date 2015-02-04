@@ -1,4 +1,4 @@
-$(document).ready(function($) {
+$(document).on('ready page:load', function(){
     new_noti_number = $("#new_noti_number").text();
     if(new_noti_number == 0) {
       $("#new_noti_number").remove();
