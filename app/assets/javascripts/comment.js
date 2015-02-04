@@ -31,7 +31,7 @@ $(document).ready(function() {
     quitUpdate = commentForm.find('.btn-comment-quit');
     quitUpdate.attr('type','button');
 
-    commentForm.find('.comment-input').attr('value',comment.text());
+    commentForm.find('.comment-input').val(comment.text());
 
     // Change Form attributes to Work as updates(patch /posts/:id/comments/:id)
     updateAction = commentForm.attr('action') +"/"+ commentId;
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
     commentForm.attr('action',submitAction);
     commentForm.find('input').last().remove();
-    commentForm.find('.comment-input').removeAttr('value');
+    commentForm.find('.comment-input').val('');
 
     $(this).attr('type','hidden');
     $('.btn-comment-update').removeClass('disabled');
