@@ -1,14 +1,19 @@
 $(document).ready(function() {
   
-  $('.comment-input').on('keypress', function(e) {
+  $('.comment-input').on('keyup', function(e) {
     
     if ($(this).val().length != 0) {
       $(this).parent().find('.comment-submit').removeClass("disabled");
-    } else if(e.keyCode == 13) {
-      e.preventDefault();
-      return false;
     } else {
       $(this).parent().find('.comment-submit').addClass("disabled");
+    }
+    console.log(e.keyCode);
+  });
+
+  $('.comment-input').on('keydown', function(e) {
+    if ($(this).val().length ==0 && e.keyCode == 13) {
+      e.preventDefault();
+      return false;
     }
   });
 
