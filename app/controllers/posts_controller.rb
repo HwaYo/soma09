@@ -64,7 +64,7 @@ class PostsController < ApplicationController
       send_notification_email "참가하셨던 공동구매가 마감되었습니다!", content
 
       message = "참가하셨던 공동구매가 마감되었습니다!"
-      NotificationsController.send_notification(@post, @post.user, message)
+      @post.participants.send_notification(@post, @post.user, message)
 
     end
 

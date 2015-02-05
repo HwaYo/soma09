@@ -23,13 +23,12 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
-      <% unless @notification == nil %>
+      <% unless @notifications == nil %>
         <%= render partial: "layouts/notification"%>
       <% end %>
       <li>
         <%= link_to destroy_user_session_path , method: :delete do %>
           <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-
           로그아웃
         <% end %>
       </li>
