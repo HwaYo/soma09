@@ -24,7 +24,7 @@ $(document).ready(function() {
     comment = commentBox.find('p');
 
     // comment Id for update form submission
-    commentId = $(this).parent().prev().find('#comment-id').attr('value');
+    commentId = $(this).parent().prev().find('.comment-id').attr('value');
     commentForm = $(this).closest('.panel-info').next().find('form');
     
     commentButton = commentForm.find('.comment-submit');

@@ -114,11 +114,11 @@
                     </small>
                   </div>
                   <p><%= comment.content %></p>
-                  <input type="hidden" id="comment-id" value=<%= comment.id %>></input>
+                  <input type="hidden" class="comment-id" value=<%= comment.id %>></input>
                 </span>
                 <span class="pull-right">
                   <% if current_user == comment.user %>
-                    <div class="btn btn-orange btn-xs btn-comment-update" id="edit-comment">수정</div>
+                    <div class="btn btn-orange btn-xs btn-comment-update">수정</div>
                     <%= link_to '삭제', [comment.post, comment], class: "btn btn-red btn-xs btn-comment-delete", method: :delete, data: { confirm: "정말로 삭제하시겠습니까?"} %>
                   <% end %>
                 </span>
