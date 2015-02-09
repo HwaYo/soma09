@@ -20,6 +20,28 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+    render partial: "edit_modal"
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      render partial: "edit_modal", status: 500
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
+    redirect_to posts_path, notice: "정상적으로 삭제하였습니다."
+  end
+
   def close
     @post = Post.find(params[:id])
 

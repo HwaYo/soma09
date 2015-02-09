@@ -12,9 +12,18 @@
     }
   }
 }
+
+.post {
+  a.host {
+    font-size: 85%;
+    color: #949494;
+  }
+}
+
 .post-content {
   word-break: break-word;
 }
+
 .post-form {
   margin-top: 50px;
   margin-bottom: 20px;
@@ -34,8 +43,4 @@
 
 .participants-body {
   padding: 0;
-}
-
-.custom-slider {
-    margin-bottom: 0px;
 }

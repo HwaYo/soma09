@@ -13,4 +13,13 @@ class Post < ActiveRecord::Base
   def self.latest
     order(created_at: :desc)
   end
+
+  def host
+    if self.link
+      uri = URI(self.link)
+      uri.host
+    else
+      ""
+    end
+  end
 end
