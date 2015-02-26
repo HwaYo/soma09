@@ -44,3 +44,25 @@
 .participants-body {
   padding: 0;
 }
+
+.post-thumbnail {
+  margin-top: 20px;
+
+  .post-thumbnail-image {
+    min-height: 50px;
+    img {
+      width: 100%;
+    }
+  }
+
+  .post-thumbnail-title {
+    font-size: 12pt;
+    font-weight: bold;
+    word-break: break-all;
+  }
+
+  .post-thumbnail-description {
+    margin: 10px 0;
+    word-break: break-all;
+  }
+}

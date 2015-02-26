@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202204858) do
+ActiveRecord::Schema.define(version: 20150201193814) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "post_id"
@@ -23,20 +23,6 @@ ActiveRecord::Schema.define(version: 20150202204858) do
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-
-  create_table "notifications", force: :cascade do |t|
-    t.integer  "post_id"
-    t.integer  "target_user_id"
-    t.integer  "send_user_id"
-    t.string   "message"
-    t.boolean  "read",           default: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-  end
-
-  add_index "notifications", ["post_id"], name: "index_notifications_on_post_id"
-  add_index "notifications", ["send_user_id"], name: "index_notifications_on_send_user_id"
-  add_index "notifications", ["target_user_id"], name: "index_notifications_on_target_user_id"
 
   create_table "participants", force: :cascade do |t|
     t.integer  "user_id"
@@ -70,9 +56,6 @@ ActiveRecord::Schema.define(version: 20150202204858) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
-
-  add_index "thumbnails", ["link"], name: "index_thumbnails_on_link"
-  add_index "thumbnails", ["post_id"], name: "index_thumbnails_on_post_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

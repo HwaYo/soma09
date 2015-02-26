@@ -54,3 +54,6 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 gem 'mailgun', '~> 0.8'
+
+# gem 'link_thumbnailer', '~> 2.4.0'
+gem 'link_thumbnailer', git: 'https://github.com/FeGs/link_thumbnailer.git', branch: 'bug/encoding-scrup'

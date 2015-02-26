@@ -75,6 +75,13 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def thumbnail
+    @post = Post.find(params[:id])
+
+    generate_thumbnail! unless @post.thumbnail
+    render json: @post.thumbnail
+  end
+
 private
   def post_params
     params.require(:post).permit(:link, :content, :max_participant_number)
@@ -91,5 +98,20 @@ private
         from: @post.user.email
       })
     end
+  end
+
+  def generate_thumbnail!
+    link_thumbnail = LinkThumbnailer.generate(@post.link)
+    @post.build_thumbnail({
+      link: @post.link,
+      title: link_thumbnail.title,
+      description: link_thumbnail.description,
+      images: link_thumbnail.images.map { |image| image.src.to_s }
+    })
+    @post.save!
+
+  # TODO: Fix invalid byte sequence problem (from gem)
+  rescue ArgumentError, LinkThumbnailer::BadUriFormat => e
+    @post.build_thumbnail
   end
 end
