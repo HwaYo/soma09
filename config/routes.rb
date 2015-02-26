@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get 'open'
     end
 
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :destroy, :update]
   end
 
   resources :participants, only: [:create, :destroy]
