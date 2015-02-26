@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   root 'posts#index'
 
-  resources :posts, only: [:index, :create] do
+  resources :posts do
     member do
       get 'close'
       get 'open'
       get 'thumbnail'
     end
 
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :destroy, :update]
   end
 
   resources :participants, only: [:create, :destroy]

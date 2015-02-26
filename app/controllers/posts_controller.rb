@@ -10,12 +10,36 @@ class PostsController < ApplicationController
 
     @new_post.user = @user
 
+    @new_post.participants.build(user: @user)
+
     if @new_post.save
       redirect_to posts_path
     else
       @posts = Post.latest
       render 'index'
     end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+    render partial: "edit_modal"
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      render partial: "edit_modal", status: 500
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
+    redirect_to posts_path, notice: "정상적으로 삭제하였습니다."
   end
 
   def close
@@ -60,7 +84,7 @@ class PostsController < ApplicationController
 
 private
   def post_params
-    params.require(:post).permit(:link, :content)
+    params.require(:post).permit(:link, :content, :max_participant_number)
   end
 
   def send_notification_email(subject, text)
