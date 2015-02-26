@@ -2,15 +2,15 @@ class PostsController < ApplicationController
   def index
     @new_post = Post.new
     @posts = Post.latest
+    @notifications = current_user.notifications.last(8).reverse
+    @notification_size = current_user.notifications.select{|notification| notification.read == false }.size
   end
 
   def create
     @new_post = Post.new(post_params)
-    @user = current_user
 
-    @new_post.user = @user
-
-    @new_post.participants.build(user: @user)
+    @new_post.user = current_user
+    @new_post.participants.build(user: current_user)
 
     if @new_post.save
       redirect_to posts_path
@@ -62,6 +62,10 @@ class PostsController < ApplicationController
       content = content.gsub /^\s+/, ""
 
       send_notification_email "참가하셨던 공동구매가 마감되었습니다!", content
+
+      message = "참가하셨던 공동구매가 마감되었습니다!"
+      @post.participants.send_notification(@post, @post.user, message)
+
     end
 
     redirect_to posts_path

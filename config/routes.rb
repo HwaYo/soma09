@@ -7,13 +7,13 @@ Rails.application.routes.draw do
       get 'open'
       get 'thumbnail'
     end
-
     resources :comments, only: [:create, :destroy, :update]
+    resources :notifications, only: [:create, :update], shallow: true
   end
 
   resources :participants, only: [:create, :destroy]
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
   namespace :admin do
     resources :users, only: [:index] do

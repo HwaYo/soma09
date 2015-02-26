@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
+  has_one :notification_target, :class_name => 'Notification', :foreign_key => 'send_user_id', dependent: :destroy
+  has_many :notifications, :class_name => 'Notification', :foreign_key => 'target_user_id', dependent: :destroy
+
   has_many :posts
   has_many :participants
   has_many :posts, through: :participants

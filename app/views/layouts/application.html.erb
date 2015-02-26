@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="skin-white page-body <%= content_for(:login_page) %>">
+
 <nav class="navbar navbar-default" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -22,11 +23,12 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Notification</a></li>
+      <% unless @notifications == nil %>
+        <%= render partial: "layouts/notification"%>
+      <% end %>
       <li>
         <%= link_to destroy_user_session_path , method: :delete do %>
           <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-
           로그아웃
         <% end %>
       </li>
@@ -36,6 +38,5 @@
 </nav>
 <%= render partial: "layouts/flash_messages", flash: flash %>
 <%= yield %>
-
 </body>
 </html>
