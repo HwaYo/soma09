@@ -4,7 +4,7 @@
       <div id="<%= post.id %>" class="col-md-6 col-md-offset-3">
         <div class="post panel panel-info" data-collapsed="0">
           <div class="panel-body">
-            <p class="post-content"><%= simple_format(post.content) %></p>
+            <p class="post-content"><%= post.content %></p>
             <%= link_to post.host, post.link, class: 'host', target: "blank" %>
             <small>
               <span class="pull-right">
