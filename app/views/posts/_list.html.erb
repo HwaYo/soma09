@@ -1,0 +1,28 @@
+<div class="post-list">
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div id="<%= post.id %>" class="col-md-6 col-md-offset-3">
+        <div class="post panel panel-info" data-collapsed="0">
+          <div class="panel-body">
+            <%= simple_format(post.content, class: "post-content") %>
+            <%= link_to post.host, post.link, class: 'host', target: "blank" %>
+            <small>
+              <span class="pull-right">
+                <%= time_ago_in_words post.created_at %> 전
+                <span>via <%= post.user.name %></span>
+              </span>
+            </small>
+            <%= render 'thumbnail', { post: post } %>
+            <div class="clearfix"></div>
+            <div class="menu-div">
+              <%= render 'menu', { post: post } %>
+              <%= render '/participants/list', { post: post } %>      
+            </div>
+          </div>
+          <%= render '/comments/list', { post: post } %>
+        </div>
+        <%= render '/comments/create', { post: post } %>
+      </div>
+    </div>
+  <% end %>
+</div>

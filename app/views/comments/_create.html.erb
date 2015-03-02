@@ -1,0 +1,12 @@
+<div class="comment-form">
+  <%= form_for [post, post.comments.new] do |f| %>
+    <%= f.hidden_field :post_id, value: post.id %>
+    <div class="input-group">
+      <%= f.text_field :content, class: "form-control comment-input" %>
+      <span class="input-group-btn">
+        <%= f.submit "댓글", class: "btn btn-info disabled comment-submit" %>
+        <input type="hidden" class="btn btn-red btn-comment-quit" value="취소"/>
+      </span>
+    </div>
+  <% end %>
+</div>
