@@ -21,7 +21,7 @@ class Post < ActiveRecord::Base
 
   def host
     if self.link
-      uri = URI(self.link)
+      uri = Addressable::URI.parse(self.link)
       uri.host
     else
       ""

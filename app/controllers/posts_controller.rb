@@ -12,9 +12,7 @@ class PostsController < ApplicationController
     @new_post.user = current_user
     @new_post.participants.build(user: current_user)
 
-    if @new_post.link.index("http://") == nil && @new_post.link.index("https://") == nil
-      @new_post.link = "http://" + @new_post.link
-    end
+    @new_post.link = Addressable::URI.heuristic_parse(@new_post.link)
     
     if @new_post.save
       redirect_to posts_path
