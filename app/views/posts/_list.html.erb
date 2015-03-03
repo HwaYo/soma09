@@ -1,7 +1,7 @@
 <div class="post-list">
   <% @posts.each do |post| %>
     <div class="row">
-      <div id="<%= post.id %>" class="col-md-6 col-md-offset-3">
+      <div id="<%= post.id %>" class="col-md-8 col-md-offset-2">
         <div class="post panel panel-info" data-collapsed="0">
           <div class="panel-body">
             <%= simple_format(post.content, class: "post-content") %>
