@@ -27,4 +27,8 @@ class Post < ActiveRecord::Base
       ""
     end
   end
+
+  def link=(value)
+    write_attribute(:link, Addressable::URI.heuristic_parse(value).to_s)
+  end
 end

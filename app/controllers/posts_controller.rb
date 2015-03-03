@@ -12,8 +12,6 @@ class PostsController < ApplicationController
     @new_post.user = current_user
     @new_post.participants.build(user: current_user)
 
-    @new_post.link = Addressable::URI.heuristic_parse(@new_post.link)
-    
     if @new_post.save
       redirect_to posts_path
     else
@@ -29,7 +27,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    
+
     if @post.update(post_params)
       redirect_to posts_path
     else
