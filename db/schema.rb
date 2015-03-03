@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205015406) do
+ActiveRecord::Schema.define(version: 20150202204858) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "post_id"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20150205015406) do
     t.integer  "user_id"
     t.integer  "comments_count",         default: 0
     t.boolean  "closed",                 default: false
-    t.integer  "participant_number",     default: 2
     t.integer  "max_participant_number", default: 2
   end
 
