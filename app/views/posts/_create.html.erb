@@ -1,0 +1,51 @@
+<div class="post-form">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= form_for @new_post do |f| %>
+          <% if @new_post.errors.messages[:max_participant_number].blank? %>
+            <div class="form-group">
+          <% else %>
+            <div class="form-group validate-has-error">
+          <% end %>
+            <%= f.label :max_participant_number, class: "hidden control-label" %>
+            <h5>참여인원</h5>
+
+            <div class="slider" data-min="2" data-max="20" data-value="2" data-fill="#max_participant_number"></div>
+
+            <%= f.text_field :max_participant_number, class: "form-control hidden", id: "max_participant_number" %>
+            <% @new_post.errors.messages[:max_participant_number].each do |message| %>
+              <span for="max_participant_number" class="validate-has-error"><%= message %></span>
+            <% end %> 
+          </div>
+
+          <% if @new_post.errors.messages[:link].blank? %>
+            <div class="form-group">
+          <% else %>
+            <div class="form-group validate-has-error">
+          <% end %>
+            <%= f.label :link, class: "hidden control-label" %>
+            <%= f.text_field :link, class: "form-control",placeholder: "제품 이미지 Url을 입력해주세요" %>
+
+            <% @new_post.errors.messages[:link].each do |message| %>
+              <span for="link" class="validate-has-error"><%= message %></span>
+            <% end %> 
+          </div>
+
+          <% if @new_post.errors.messages[:content].blank? %>
+            <div class="form-group">
+          <% else %>
+            <div class="form-group validate-has-error">
+          <% end %>
+            <%= f.label :content, class: "hidden control-label" %>
+            <%= f.text_area :content, class: "form-control",  placeholder: "제품 설명을 적어주세요", rows: 10 %>
+
+            <% @new_post.errors.messages[:content].each do |message| %>
+              <span for="content" class="validate-has-error"><%= message %></span>
+            <% end %>
+          </div>
+
+          <%= f.submit "등록", class: "btn btn-info btn-block" %>
+        <% end %>
+      </div>
+  </div>
+</div>

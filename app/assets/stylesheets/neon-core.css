@@ -1,3 +1,10 @@
+body.loaded {
+-webkit-perspective: none;
+-moz-perspective: none;
+perspective: none;
+}
+
+
 *,
 *:before,
 *:after {
