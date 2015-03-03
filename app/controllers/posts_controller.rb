@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     @new_post.user = current_user
     @new_post.participants.build(user: current_user)
 
-    if @new_post.link.index("http://") == nil
+    if @new_post.link.index("http://") == nil && @new_post.link.index("https://") == nil
       @new_post.link = "http://" + @new_post.link
     end
     
