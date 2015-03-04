@@ -258,9 +258,9 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   if Rails.env.production?
     config.omniauth :facebook, "711281738969472", "9972f7c88f47ab7731cabbe316f37a8c",
-      image_size: 'large'
+      image_size: 'square'
   else
     config.omniauth :facebook, "405883329580558", "61b2b2b8ed6c24b1001bd5a670a194ef",
-      image_size: 'large'
+      image_size: 'square'
   end
 end
