@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   validates :content, presence: { message: "상품 설명을 입력해주세요." }
   validates :max_participant_number, inclusion: { in: 2..20, message: "참여자 2 ~ 20명을 선택해주세요." }
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, -> { order(created_at: :asc) }, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
   belongs_to :user, counter_cache: true
