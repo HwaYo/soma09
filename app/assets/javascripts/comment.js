@@ -46,6 +46,7 @@ $(document).ready(function() {
     commentForm.append(patchInput);
 
     $('.btn-comment-update').addClass('disabled');
+    $('.comment-input').keyup();
     
   });
 
