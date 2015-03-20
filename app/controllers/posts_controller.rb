@@ -13,6 +13,21 @@ class PostsController < ApplicationController
     @new_post.participants.build(user: current_user)
 
     if @new_post.save
+      subject = "#{current_user.name}님이 새로운 공동구매를 개설하였습니다."
+      content = <<-eos
+        <p>새로운 공동구매가 개설되었습니다.</p>
+        <p>
+          <strong>내용: </strong></br>
+          #{@new_post.content}
+        </p>
+        <p>
+          자세한내용은 <a href="http://soma09.herokuapp.com">여기</a>에 가서 확인해주세요!
+        </p>
+      eos
+
+      content = content.gsub /^\s+/, ""
+      send_all_notification_email subject, content
+
       redirect_to posts_path
     else
       @posts = Post.latest
@@ -46,6 +61,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.update(closed: true)
+      subject = "참가하셨던 공동구매가 마감되었습니다!"
       content = <<-eos
         <p>참가하셨던 공동구매가 마감되었습니다!</p>
         <p>
@@ -61,11 +77,7 @@ class PostsController < ApplicationController
 
       content = content.gsub /^\s+/, ""
 
-      send_notification_email "참가하셨던 공동구매가 마감되었습니다!", content
-
-      message = "참가하셨던 공동구매가 마감되었습니다!"
-      @post.participants.send_notification(@post, @post.user, message)
-
+      @post.participants.send_notification(@post, @post.user, subject, content)
     end
 
     redirect_to posts_path
@@ -91,15 +103,17 @@ private
     params.require(:post).permit(:link, :content, :max_participant_number)
   end
 
-  def send_notification_email(subject, text)
+  def send_all_notification_email(subject, text)
+    users = User.all
     @mailgun = Mailgun()
 
-    @post.participants.each do |participant|
+    users.each do |user|
+      next if user == current_user
       @mailgun.messages.send_email({
-        to: participant.user.email,
+        to: user.email,
         subject: subject,
         html: text,
-        from: @post.user.email
+        from: current_user.email
       })
     end
   end

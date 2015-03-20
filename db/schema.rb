@@ -71,6 +71,9 @@ ActiveRecord::Schema.define(version: 20150306084710) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "thumbnails", ["link"], name: "index_thumbnails_on_link"
+  add_index "thumbnails", ["post_id"], name: "index_thumbnails_on_post_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",     default: "",    null: false

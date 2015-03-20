@@ -3,14 +3,22 @@ class Participant < ActiveRecord::Base
   belongs_to :post
   validate :validate_participants
 
-  def self.send_notification(post, send_user, message)
+  def self.send_notification(post, send_user, subject, text)
+    @mailgun = Mailgun()
+
     self.all.each do |participant|
       next if participant.user == send_user
       Notification.create!({
-        message: message,
+        message: subject,
         target_user: participant.user,
         send_user: send_user,
         post: post
+      })
+      @mailgun.messages.send_email({
+        to: participant.user.email,
+        subject: subject,
+        html: text,
+        from: send_user.email
       })
     end
   end
