@@ -5,6 +5,18 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
 
     if @comment.save
+      subject = "#{current_user.name}님이 참여한 공동구매에 댓글을 달았습니다."
+      content = <<-eos
+        <p>#{current_user.name}님이 참여한 공동구매에 댓글을 달았습니다.</p>
+        <p>
+          자세한내용은 <a href="http://soma09.herokuapp.com">여기</a>에 가서 확인해주세요!
+        </p>
+      eos
+
+      content = content.gsub /^\s+/, ""
+
+      @post.participants.send_notification(@post, current_user, subject, content)
+
       redirect_to posts_path
     else
       @new_post = Post.new
